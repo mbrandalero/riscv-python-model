@@ -26,11 +26,11 @@ class InstructionJAL(InstructionJType):
         model.pc = self.imm
 
 
-@isa("jalr", 0x67, 0)
-class InstructionJALR(InstructionIType):
-    def execute(self, model: State):
-        model.intreg[self.rd] = model.pc + 4
-        model.pc = model.intreg[self.rs1] + self.imm
+#@isa("jalr", 0x67, 0)
+#class InstructionJALR(InstructionIType):
+#    def execute(self, model: State):
+#        model.intreg[self.rd] = model.pc + 4
+#        model.pc = model.intreg[self.rs1] + self.imm
 
 
 @isa("beq", 0x63, 0)
@@ -76,40 +76,40 @@ class InstructionBGEU(InstructionBType):
             model.pc = model.pc + self.imm
 
 
-@isa("lb", 0x03, 0)
-class InstructionLB(InstructionILType):
-    def execute(self, model: State):
-        data = model.lb((model.intreg[self.rs1] + self.imm).unsigned())
-        if (data >> 7) & 0x1:
-            data |= 0xFFFFFF00
-        model.intreg[self.rd] = data
+#@isa("lb", 0x03, 0)
+#class InstructionLB(InstructionILType):
+#    def execute(self, model: State):
+#        data = model.lb((model.intreg[self.rs1] + self.imm).unsigned())
+#        if (data >> 7) & 0x1:
+#            data |= 0xFFFFFF00
+#        model.intreg[self.rd] = data
 
-@isa("lh", 0x03, 1)
-class InstructionLH(InstructionILType):
-    def execute(self, model: State):
-        data = model.lh((model.intreg[self.rs1] + self.imm).unsigned())
-        if (data >> 15) & 0x1:
-            data |= 0xFFFF0000
-        model.intreg[self.rd] = data
+#@isa("lh", 0x03, 1)
+#class InstructionLH(InstructionILType):
+#    def execute(self, model: State):
+#        data = model.lh((model.intreg[self.rs1] + self.imm).unsigned())
+#        if (data >> 15) & 0x1:
+#            data |= 0xFFFF0000
+#        model.intreg[self.rd] = data
 
 
 @isa("lw", 0x03, 2)
 class InstructionLW(InstructionILType):
     def execute(self, model: State):
-        data = model.lw((model.intreg[self.rs1] + self.imm).unsigned())
+        data = model.memory.lw((model.intreg[self.rs1] + self.imm).unsigned())
         model.intreg[self.rd] = data
 
 
-@isa("lbu", 0x03, 4)
-class InstructionLBU(InstructionILType):
-    def execute(self, model: State):
-        model.intreg[self.rd] = model.lb((model.intreg[self.rs1] + self.imm).unsigned())
+#@isa("lbu", 0x03, 4)
+#class InstructionLBU(InstructionILType):
+#    def execute(self, model: State):
+#        model.intreg[self.rd] = model.lb((model.intreg[self.rs1] + self.imm).unsigned())
 
 
-@isa("lhu", 0x03, 5)
-class InstructionLHU(InstructionILType):
-    def execute(self, model: State):
-        model.intreg[self.rd] = model.lh((model.intreg[self.rs1] + self.imm).unsigned())
+#@isa("lhu", 0x03, 5)
+#class InstructionLHU(InstructionILType):
+#    def execute(self, model: State):
+#        model.intreg[self.rd] = model.lh((model.intreg[self.rs1] + self.imm).unsigned())
 
 
 @isa("sb", 0x23, 0)
@@ -306,19 +306,19 @@ class InstructionCSRRCI(Instruction):
     pass
 
 
-@isa("lwu", 0x3, 6, variant=RV64I)
-class InstructionLWU(InstructionIType):
-    pass
+#@isa("lwu", 0x3, 6, variant=RV64I)
+#class InstructionLWU(InstructionIType):
+#    pass
 
 
-@isa("ld", 0x3, 3, variant=RV64I)
-class InstructionLD(InstructionIType):
-    pass
+#@isa("ld", 0x3, 3, variant=RV64I)
+#class InstructionLD(InstructionIType):
+#    pass
 
 
-@isa("sd", 0x23, 3, variant=RV64I)
-class InstructionSD(InstructionISType):
-    pass
+#@isa("sd", 0x23, 3, variant=RV64I)
+#class InstructionSD(InstructionISType):
+#    pass
 
 
 @isa_pseudo()
